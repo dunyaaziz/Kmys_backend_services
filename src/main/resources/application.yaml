@@ -1,0 +1,53 @@
+#
+#spring: datasource:  url = jdbc:h2::  /devdb
+#spring:  datasource:  username = sa#spring  jpa:  hibernate:  ddl-auto = update
+
+#spring:
+#  jpa:
+#    properties:
+#      javax:
+#        persistence:
+#          validation:
+#            mode : none
+spring:
+  datasource:
+    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+    url: jdbc:sqlserver://localhost;databaseName=db
+    username: username
+    password: Password
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.SybaseASE15Dialect
+      javax:
+        persistence:
+          validation:
+            mode : none
+
+  data:
+    web:
+      pageable:
+        max-page-size: 100
+        default-page-size: 10
+
+  profiles:
+    active:
+    - dev
+---
+spring:
+  config:
+    activate:
+      on-profile: production
+mch:
+  upload-path: "storage-prod"
+  download-path: "file-download"
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+mch:
+  upload-path: "storage-dev"
+  download-path: "file-download"
